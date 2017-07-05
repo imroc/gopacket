@@ -21,11 +21,12 @@ package tcpassembly
 import (
 	"flag"
 	"fmt"
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
 	"log"
 	"sync"
 	"time"
+
+	"github.com/imroc/gopacket"
+	"github.com/imroc/gopacket/layers"
 )
 
 var memLog = flag.Bool("assembly_memuse_log", false, "If true, the github.com/google/gopacket/tcpassembly library will log information regarding its memory use every once in a while.")
@@ -269,6 +270,16 @@ func (a *Assembler) FlushWithOptions(opt FlushOptions) (flushed, closed int) {
 // FlushOlderThan calls FlushWithOptions with the CloseAll option set to true.
 func (a *Assembler) FlushOlderThan(t time.Time) (flushed, closed int) {
 	return a.FlushWithOptions(FlushOptions{CloseAll: true, T: t})
+}
+
+func (a *Assembler) Flush(net, transport gopacket.Flow) bool {
+	k := key{net, transport}
+	conn := a.connPool.conns[k]
+	if conn == nil {
+		return false
+	}
+	a.closeConnection(conn)
+	return true
 }
 
 // FlushAll flushes all remaining data into all remaining connections, closing

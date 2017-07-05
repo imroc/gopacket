@@ -9,7 +9,8 @@ package layers
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/google/gopacket"
+
+	"github.com/imroc/gopacket"
 )
 
 //  VXLAN is specifed in RFC 7348 https://tools.ietf.org/html/rfc7348

@@ -12,8 +12,8 @@ import (
 	"log"
 	"testing"
 
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
+	"github.com/imroc/gopacket"
+	"github.com/imroc/gopacket/layers"
 )
 
 func TestPcapFileRead(t *testing.T) {

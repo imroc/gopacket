@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
+	"github.com/imroc/gopacket"
+	"github.com/imroc/gopacket/layers"
 )
 
 // netFlow declared in tcpassembly_test

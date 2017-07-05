@@ -8,9 +8,10 @@ package pcapgo
 
 import (
 	"bytes"
-	"github.com/google/gopacket"
 	"testing"
 	"time"
+
+	"github.com/imroc/gopacket"
 )
 
 func TestWriteHeader(t *testing.T) {
