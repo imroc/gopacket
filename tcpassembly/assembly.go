@@ -274,11 +274,17 @@ func (a *Assembler) FlushOlderThan(t time.Time) (flushed, closed int) {
 
 func (a *Assembler) Flush(net, transport gopacket.Flow) bool {
 	k := key{net, transport}
+	a.connPool.mu.RLock()
 	conn := a.connPool.conns[k]
+	a.connPool.mu.RUnlock()
 	if conn == nil {
 		return false
 	}
-	a.closeConnection(conn)
+	conn.mu.Lock()
+	if !conn.closed {
+		a.closeConnection(conn)
+	}
+	conn.mu.Unlock()
 	return true
 }
 
